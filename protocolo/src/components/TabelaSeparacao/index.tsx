@@ -20,7 +20,7 @@ export default function TabelaSeparacao() {
         <Table className="custom-table">
           <thead>
             <tr>
-              <th >Protocolo</th>
+              <th>Protocolo</th>
               <th>Start Bit</th>
               <th>Tamanho do Pacote</th>
               <th>Numero do Protocolo</th>
@@ -32,7 +32,7 @@ export default function TabelaSeparacao() {
           </thead>
           <tbody>
             <tr>
-              <td >teste</td>
+              <td>teste</td>
               <td>teste</td>
               <td>teste</td>
               <td>teste</td>
