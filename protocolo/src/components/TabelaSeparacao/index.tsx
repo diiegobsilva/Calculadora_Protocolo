@@ -20,6 +20,9 @@ export default function TabelaSeparacao() {
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
       const prefixo = valorProtocolo.substring(0, 4);
+
+      console.log(prefixo);
+      
       let protocolo, startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit;
 
       if (prefixo === "7878") {
@@ -31,6 +34,7 @@ export default function TabelaSeparacao() {
         informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
         errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
         stopBit = valorProtocolo.substring(valorProtocolo.length - 4);
+
       } else if (prefixo === "7979") {
         protocolo = valorProtocolo.substring(0, 4);
         startBit = valorProtocolo.substring(4, 8);
@@ -40,6 +44,7 @@ export default function TabelaSeparacao() {
         informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
         errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
         stopBit = valorProtocolo.substring(valorProtocolo.length - 4);
+        
       } else {
         console.log("Prefixo incorreto");
         setTableData({
