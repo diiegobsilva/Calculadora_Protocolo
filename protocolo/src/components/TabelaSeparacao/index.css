@@ -16,6 +16,7 @@
 .labelProtocolo {
   display: flex;   
   align-items: center; 
+  margin-left: 60px; 
 }
 .label {
   font-size: 20px;
