@@ -32,10 +32,10 @@ export default function Navbar() {
       <div className={`navigation-menu ${menuOpen ? 'open' : ''}`}>
         <ul>
           <li>
-            <a href="/home">Leitor Unitário</a>
+            <a href="/leitorUnitario">Leitor Unitário</a>
           </li>
           <li>
-            <a href="/about">Leitor em Lote</a>
+            <a href="/leitorLote">Leitor em Lote</a>
           </li>
         </ul>
       </div>

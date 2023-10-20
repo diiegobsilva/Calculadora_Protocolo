@@ -4,9 +4,9 @@ import React from 'react';
 export default function TabelaSeparacao() {
   return (
     <div className="App">
-      <text>dededeededdeedde</text>
+      <label htmlFor="Protocolo">Protocolo</label>
     </div>
   );
-}
+}  
 
 
