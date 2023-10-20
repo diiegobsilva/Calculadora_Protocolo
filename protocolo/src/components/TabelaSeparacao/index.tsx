@@ -5,7 +5,7 @@ export default function TabelaSeparacao() {
   return (
     <div className="app-container">
       <div className="input-container">
-        <div>
+        <div className="labelProtocolo">
            <label className="label">Protocolo</label>
            <input type="text"  className="input"/>
         </div>

@@ -9,18 +9,20 @@
 .input-container {
   display: flex;
   align-items: center;
-
+  justify-content: space-between;  /* Adiciona este estilo para separar as divs à esquerda e à direita */
   margin-bottom: 20px;
   width: 100%;
 }
-
+.labelProtocolo {
+  display: flex;   /* Mantém o display flex */
+  align-items: center;  /* Centraliza os itens verticalmente se necessário */
+}
 .label {
   font-size: 20px;
 
 }
 .containerBotao {
-  margin-left: 30px;
-
+  margin-left: 30px;  /* Mantém a margem à esquerda */
 }
 
 .input {
@@ -46,7 +48,7 @@
   font-weight: bold;
   border-radius: 5px;
   background-color: #3c55b9;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 
 .btn:hover {
