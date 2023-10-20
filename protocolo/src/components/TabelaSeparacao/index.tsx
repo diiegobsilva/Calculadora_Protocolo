@@ -1,68 +1,60 @@
+import React, { useState } from 'react';
 import { Table } from "react-bootstrap";
 import './index.css';
-import { useState } from "react";
-
-interface SeparationResult {
-  startBit: string;
-  tamanhoProtocolo: string;
-  numeroProtocolo: string;
-  informacaoContida: string;
-  informacaoSequencia: string;
-  errorCheck: string;
-  stopBit: string;
-}
 
 export default function TabelaSeparacao() {
   const [valorProtocolo, setValorProtocolo] = useState("");
-  const [tableData, setTableData] = useState<SeparationResult | null>(null);
+  const [startBit, setStartBit] = useState("");
+  const [tamanhoProtocolo, setTamanhoProtocolo] = useState("");
+  const [numeroProtocolo, setNumeroProtocolo] = useState("");
+  const [informacaoContida, setInformacaoContida] = useState("");
+  const [informacaoSequencia, setInformacaoSequencia] = useState("");
+  const [errorCheck, setErrorCheck] = useState("");
+  const [stopBit, setStopBit] = useState("");
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
       const prefixo = valorProtocolo.substring(0, 4);
 
-      console.log(prefixo);
-      
-      let  startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit;
-
       if (prefixo === "7878") {
-        startBit = valorProtocolo.substring(0, 4);
-        tamanhoProtocolo = valorProtocolo.substring(4, 6);
-        numeroProtocolo = valorProtocolo.substring(6, 8);
-        informacaoContida = valorProtocolo.substring(8, valorProtocolo.length - 12);
-        informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
-        errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
-        stopBit = valorProtocolo.substring(valorProtocolo.length - 4, valorProtocolo.length - 0);
-
+        setStartBit(valorProtocolo.substring(0, 4));
+        setTamanhoProtocolo(valorProtocolo.substring(4, 6));
+        setNumeroProtocolo(valorProtocolo.substring(6, 8));
+        setInformacaoContida(valorProtocolo.substring(8, valorProtocolo.length - 12));
+        setInformacaoSequencia(valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8));
+        setErrorCheck(valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4));
+        setStopBit(valorProtocolo.substring(valorProtocolo.length - 4, valorProtocolo.length - 0));
       } else if (prefixo === "7979") {
-        startBit = valorProtocolo.substring(0, 4);
-        tamanhoProtocolo = valorProtocolo.substring(4, 8);
-        numeroProtocolo = valorProtocolo.substring(8, 10);
-        informacaoContida = valorProtocolo.substring(10, valorProtocolo.length - 12);
-        informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
-        errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
-        stopBit = valorProtocolo.substring(valorProtocolo.length - 4,  valorProtocolo.length - 0) ;
-        
+        setStartBit(valorProtocolo.substring(0, 4));
+        setTamanhoProtocolo(valorProtocolo.substring(4, 8));
+        setNumeroProtocolo(valorProtocolo.substring(8, 10));
+        setInformacaoContida(valorProtocolo.substring(10, valorProtocolo.length - 12));
+        setInformacaoSequencia(valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8));
+        setErrorCheck(valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4));
+        setStopBit(valorProtocolo.substring(valorProtocolo.length - 4,  valorProtocolo.length - 0));
       } else {
         console.log("Prefixo incorreto");
-        setTableData({
-          startBit: "",
-          tamanhoProtocolo: "",
-          numeroProtocolo: "",
-          informacaoContida: "",
-          informacaoSequencia: "",
-          errorCheck: "",
-          stopBit: "",
-        });
+        setStartBit("");
+        setTamanhoProtocolo("");
+        setNumeroProtocolo("");
+        setInformacaoContida("");
+        setInformacaoSequencia("");
+        setErrorCheck("");
+        setStopBit("");
         return;
       }
-
-      setTableData({  startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit });
     }
   };
 
   const handleLimpezaClick = () => {
     setValorProtocolo("");
-    setTableData(null);
+    setStartBit("");
+    setTamanhoProtocolo("");
+    setNumeroProtocolo("");
+    setInformacaoContida("");
+    setInformacaoSequencia("");
+    setErrorCheck("");
+    setStopBit("");
   };
 
   return (
@@ -98,13 +90,13 @@ export default function TabelaSeparacao() {
           </thead>
           <tbody>
             <tr>
-              <td>{tableData?.startBit}</td>
-              <td>{tableData?.tamanhoProtocolo}</td>
-              <td>{tableData?.numeroProtocolo}</td>
-              <td>{tableData?.informacaoContida}</td>
-              <td>{tableData?.informacaoSequencia}</td>
-              <td>{tableData?.errorCheck}</td>
-              <td>{tableData?.stopBit}</td>
+              <td>{startBit}</td>
+              <td>{tamanhoProtocolo}</td>
+              <td>{numeroProtocolo}</td>
+              <td>{informacaoContida}</td>
+              <td>{informacaoSequencia}</td>
+              <td>{errorCheck}</td>
+              <td>{stopBit}</td>
             </tr>
           </tbody>
         </Table>

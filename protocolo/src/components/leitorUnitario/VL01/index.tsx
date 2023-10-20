@@ -7,8 +7,8 @@ export default function Vl01() {
 
   return (
     <div>
-        <TabelaSeparacao/>  
-        <div>
+        <TabelaSeparacao />  
+        <div>   
 
         </div>
     </div>
