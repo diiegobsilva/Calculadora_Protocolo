@@ -3,7 +3,6 @@ import './index.css';
 import { useState } from "react";
 
 interface SeparationResult {
-  protocolo: string;
   startBit: string;
   tamanhoProtocolo: string;
   numeroProtocolo: string;
@@ -23,32 +22,29 @@ export default function TabelaSeparacao() {
 
       console.log(prefixo);
       
-      let protocolo, startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit;
+      let  startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit;
 
       if (prefixo === "7878") {
-        protocolo = valorProtocolo.substring(0, 4);
-        startBit = valorProtocolo.substring(4, 6);
-        tamanhoProtocolo = valorProtocolo.substring(6, 8);
-        numeroProtocolo = valorProtocolo.substring(8, valorProtocolo.length - 16);
-        informacaoContida = valorProtocolo.substring(valorProtocolo.length - 16, valorProtocolo.length - 12);
+        startBit = valorProtocolo.substring(0, 4);
+        tamanhoProtocolo = valorProtocolo.substring(4, 6);
+        numeroProtocolo = valorProtocolo.substring(6, 8);
+        informacaoContida = valorProtocolo.substring(8, valorProtocolo.length - 12);
         informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
         errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
-        stopBit = valorProtocolo.substring(valorProtocolo.length - 4);
+        stopBit = valorProtocolo.substring(valorProtocolo.length - 4, valorProtocolo.length - 0);
 
       } else if (prefixo === "7979") {
-        protocolo = valorProtocolo.substring(0, 4);
         startBit = valorProtocolo.substring(4, 8);
         tamanhoProtocolo = valorProtocolo.substring(8, 10);
         numeroProtocolo = valorProtocolo.substring(10, valorProtocolo.length - 16);
         informacaoContida = valorProtocolo.substring(valorProtocolo.length - 16, valorProtocolo.length - 12);
         informacaoSequencia = valorProtocolo.substring(valorProtocolo.length - 12, valorProtocolo.length - 8);
         errorCheck = valorProtocolo.substring(valorProtocolo.length - 8, valorProtocolo.length - 4);
-        stopBit = valorProtocolo.substring(valorProtocolo.length - 4);
+        stopBit = valorProtocolo.substring(valorProtocolo.length - 4,  valorProtocolo.length - 0) ;
         
       } else {
         console.log("Prefixo incorreto");
         setTableData({
-          protocolo: "",
           startBit: "",
           tamanhoProtocolo: "",
           numeroProtocolo: "",
@@ -60,7 +56,7 @@ export default function TabelaSeparacao() {
         return;
       }
 
-      setTableData({ protocolo, startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit });
+      setTableData({  startBit, tamanhoProtocolo, numeroProtocolo, informacaoContida, informacaoSequencia, errorCheck, stopBit });
     }
   };
 
@@ -91,7 +87,6 @@ export default function TabelaSeparacao() {
         <Table className="custom-table">
           <thead>
             <tr>
-              <th>Protocolo</th>
               <th>Start Bit</th>
               <th>Tamanho do Pacote</th>
               <th>Numero do Protocolo</th>
@@ -103,7 +98,6 @@ export default function TabelaSeparacao() {
           </thead>
           <tbody>
             <tr>
-              <td>{tableData?.protocolo}</td>
               <td>{tableData?.startBit}</td>
               <td>{tableData?.tamanhoProtocolo}</td>
               <td>{tableData?.numeroProtocolo}</td>
