@@ -12,7 +12,7 @@ body {
   .navigation-menu {
     display: none;
     position: fixed;
-    right: 0;
+    left: 0;
     height: 100%;
     width: 300px;
     background-color: #444444;
@@ -39,15 +39,16 @@ body {
     font-size: 20px;
   }
   
-  .hamburger {
+  .buttonMenu {
+    left: 0;
     border: 0;
     height: 40px;
     width: 40px;
+    margin-left: 20px;
     padding: 0.5rem;
     border-radius: 50%;
     background-color: #283b8b;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
     position: absolute;
     top: 50%;
     right: 25px;

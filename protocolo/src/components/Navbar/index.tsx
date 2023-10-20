@@ -9,11 +9,11 @@ export default function Navbar() {
   };
 
   return (
-    <div className="container">
+    <div>
       <nav className={`navigation ${menuOpen ? 'menu-open' : ''}`}>
         <div className="nav-container">
           <img src='https://br.jimilab.com/wp-content/uploads/2022/09/logo.png'  />
-          <button className="hamburger" onClick={toggleMenu}>
+          <button className="buttonMenu" onClick={toggleMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -32,13 +32,10 @@ export default function Navbar() {
       <div className={`navigation-menu ${menuOpen ? 'open' : ''}`}>
         <ul>
           <li>
-            <a href="/home">Home</a>
+            <a href="/home">Leitor Unitário</a>
           </li>
           <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
+            <a href="/about">Leitor em Lote</a>
           </li>
         </ul>
       </div>
