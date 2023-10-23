@@ -6,7 +6,7 @@ import TabelaSeparacao from '../TabelaSeparacao';
 export default function LeitorUnitario() {
   return (
       <div className="container">
-          <TabelaSeparacao/>
+          
 
       </div>
 
