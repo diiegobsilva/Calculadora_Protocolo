@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 import TabelaSeparacao from '../../TabelaSeparacao';
+import { Table } from 'react-bootstrap';
 
 export default function Vl01() {
   const [valorProtocolo, setValorProtocolo] = useState("");
@@ -73,8 +74,41 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo} 
         valorProtocolo={valorProtocolo}        />
         <div>   
-            <h1>{startBit}</h1>
-        </div>
+              <div className="containerTable">
+            <table className="table table-bordered">
+              <tbody>
+                <tr>
+                  <th scope="row">Start Bit:</th>
+                  <td>{startBit}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Tamanho do Pacote:</th>
+                  <td>{tamanhoProtocolo}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Numero do Protocolo:</th>
+                  <td>{numeroProtocolo}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Informação Contida:</th>
+                  <td>{informacaoContida}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Informação do Numero Sequencia:</th>
+                  <td>{informacaoSequencia}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Error Check:</th>
+                  <td>{errorCheck}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Stop Bit:</th>
+                  <td>{stopBit}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>  
     </div>
   );
 }
