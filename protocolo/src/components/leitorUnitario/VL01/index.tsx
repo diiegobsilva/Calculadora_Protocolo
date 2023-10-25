@@ -4,6 +4,8 @@ import TabelaSeparacao from '../../TabelaSeparacao';
 import { Table } from 'react-bootstrap';
 
 export default function Vl01() {
+
+  //Inicio Variaveis Separação
   const [valorProtocolo, setValorProtocolo] = useState("");
   const [startBit, setStartBit] = useState("");
   const [tamanhoProtocolo, setTamanhoProtocolo] = useState("");
@@ -12,7 +14,13 @@ export default function Vl01() {
   const [informacaoSequencia, setInformacaoSequencia] = useState("");
   const [errorCheck, setErrorCheck] = useState("");
   const [stopBit, setStopBit] = useState("");
- 
+  //Fim Variaveis Separação
+
+  const [resultado, setResultado] = useState("");
+  const [imei, setImei] = useState("");
+  const [modelo, setModelo] = useState("");
+  const [fuso, setFuso] = useState("");
+  
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
@@ -58,6 +66,53 @@ export default function Vl01() {
     setErrorCheck("");
     setStopBit("");
   };
+
+
+  const handleInformacaoContida =  (numeroProtocolo:string) => {
+    switch (numeroProtocolo) {
+      case "01":
+        setResultado("Informação de Login");
+        break;
+      case "13":
+        setResultado("Pacote de Heartbeat");
+        break;
+      case "A0":
+        setResultado("Dados de posição (UTC)");
+        break;
+      case "A4":
+        setResultado("Pacote de alarmes (cerca)");
+        break;
+      case "94":
+        setResultado("Pacote de transmissão de informação");
+        break;
+      case "95":
+        setResultado("Pacote de alarmes");
+        break;
+      case "80":
+        setResultado("Comando online");
+        break;
+      case "C3":
+        setResultado("Pacote de informação WIFI");
+        break;
+      default:
+        setResultado("Protocolo não identificado");
+    }
+  };
+
+  const handlePacoteLogin = () => {
+      if (numeroProtocolo == "01") {
+        setImei(informacaoContida.substring(0, 16));
+        setModelo(informacaoContida.substring(16, 20));
+        setFuso(informacaoContida.substring(20, 24));
+      }else {
+        console.log("Numer de Protocolo incorreto");
+        setImei("");
+        setModelo("");
+        setFuso("");
+      }
+    }
+
+
   return (
 
     <div>
@@ -74,39 +129,33 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo} 
         valorProtocolo={valorProtocolo}        />
         <div>   
-              <div className="containerTable">
-            <table className="table table-bordered">
+          <div className="tableContainer">
+            <div className="labelContainer">
+
+            </div>
+            <div className="containerLabel">
+              <label className="labelTitulo">Pacote de Login</label>
+            </div>
+            <table className="customTable">
               <tbody>
                 <tr>
-                  <th scope="row">Start Bit:</th>
-                  <td>{startBit}</td>
+                  <th scope="row">IMEI:</th>
+                  <td>{imei}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Tamanho do Pacote:</th>
-                  <td>{tamanhoProtocolo}</td>
+                  <th scope="row">Modelo:</th>
+                  <td>{modelo}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Numero do Protocolo:</th>
-                  <td>{numeroProtocolo}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Informação Contida:</th>
-                  <td>{informacaoContida}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Informação do Numero Sequencia:</th>
-                  <td>{informacaoSequencia}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Error Check:</th>
-                  <td>{errorCheck}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Stop Bit:</th>
-                  <td>{stopBit}</td>
+                  <th scope="row">Fuso Horário:</th>
+                  <td>{fuso}</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <div className="button-container">
+            <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteLogin()}>Teste</button>
           </div>
     </div>  
     </div>
