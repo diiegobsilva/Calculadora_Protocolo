@@ -51,18 +51,32 @@ export default function Vl01() {
   //Inicio Pacote de Alarme 
   const [alarmeLinguagem, setAlarmeLinguagem] = useState("")
   const [alarme, setAlarme] = useState("")
-    //data e hora
-    //latidude
-    //Logitude
-    //Curso, Status
+  //data e hora
+  //latidude
+  //Logitude
+  //Curso, Status
   //Fim Pacote de Alarme 
 
-  //Pacote de Alarme (Cerca)
-   const [tamanhoLbs, setTamanhoLbs] = useState("")
-   const [informacaoDoTerminal, setInformacaoDoTerminal] = useState("")
-   const [tensaoDeBateriaInterna, setTensaoDeBateriaInterna] = useState("")
-   const [qualidadeDoSinalGsm, setQualidadeDoSinalGsm] = useState("")
-   const [cerca, setCerca] = useState("")
+  //Inicio Pacote de Alarme (Cerca)
+  const [tamanhoLbs, setTamanhoLbs] = useState("")
+  const [informacaoDoTerminal, setInformacaoDoTerminal] = useState("")
+  const [tensaoDeBateriaInterna, setTensaoDeBateriaInterna] = useState("")
+  const [qualidadeDoSinalGsm, setQualidadeDoSinalGsm] = useState("")
+  const [cerca, setCerca] = useState("")
+  //Fim Pacote de Alarme (Cerca)
+
+
+  //Inicio Comando Online
+  const [tamanhoComando, setTamanhoComando] = useState("")
+  const [bitBandeiraServidor, setBitBandeiraServidor] = useState("")
+  const [conteudoComando, setConteudoComando] = useState("")
+  const [linguagem, setLinguagem] = useState("")
+  //Fim Comando Online
+
+  //Inicio Pacote Transmissão de Informação
+  const [tipoInformacao, setTipoInformacao] = useState("")
+  const [conteudoDados, setConteudoDados] = useState("")
+  //Fim Pacote Transmissão de Informação
 
 
   const handleSeparacaoClick = () => {
@@ -174,7 +188,6 @@ export default function Vl01() {
   }
 
   const handleDadosPosicao = () => {
-
     if (numeroProtocolo == "A0") {
       setDataHora(informacaoContida.substring(0, 12));
       setQuantidadeSatelite(informacaoContida.substring(12, 14));
@@ -228,22 +241,22 @@ export default function Vl01() {
 
   const handlePacoteAlarmesCerca = () => {
     if (numeroProtocolo == "A4") {
-      setDataHora(informacaoContida.substring(0, 12)); //12
-      setQuantidadeSatelite(informacaoContida.substring(12, 14)); //2
-      setLatitude(informacaoContida.substring(14, 22)); //8
-      setLongitude(informacaoContida.substring(22, 30)); //8
-      setVelocidade(informacaoContida.substring(30, 32)); //2
-      setCurso(informacaoContida.substring(32, 36)); //4
-      setTamanhoLbs(informacaoContida.substring(36, 38)); //2
-      setMcc(informacaoContida.substring(38, 42)); //4
-      setMnc(informacaoContida.substring(42, 44)); //2
-      setLac(informacaoContida.substring(44, 48)); //4
-      setCelularId(informacaoContida.substring(48, 54)); //6
-      setInformacaoDoTerminal(informacaoContida.substring(54, 56)); //2
-      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58)); //2
-      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60)); //2
-      setAlarmeLinguagem(informacaoContida.substring(60, 64)); //4
-      setCerca(informacaoContida.substring(64, 66)); //2
+      setDataHora(informacaoContida.substring(0, 12)); 
+      setQuantidadeSatelite(informacaoContida.substring(12, 14)); 
+      setLatitude(informacaoContida.substring(14, 22)); 
+      setLongitude(informacaoContida.substring(22, 30)); 
+      setVelocidade(informacaoContida.substring(30, 32)); 
+      setCurso(informacaoContida.substring(32, 36)); 
+      setTamanhoLbs(informacaoContida.substring(36, 38)); 
+      setMcc(informacaoContida.substring(38, 42)); 
+      setMnc(informacaoContida.substring(42, 44)); 
+      setLac(informacaoContida.substring(44, 48)); 
+      setCelularId(informacaoContida.substring(48, 54)); 
+      setInformacaoDoTerminal(informacaoContida.substring(54, 56)); 
+      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58)); 
+      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60)); 
+      setAlarmeLinguagem(informacaoContida.substring(60, 64)); 
+      setCerca(informacaoContida.substring(64, 66)); 
 
     } else {
       console.log("Numero de Protocolo incorreto");
@@ -259,9 +272,35 @@ export default function Vl01() {
       setCelularId("");
       setInformacaoDoTerminal("");
       setTensaoDeBateriaInterna("");
-      setQualidadeDoSinalGsm ("");
-      setAlarmeLinguagem ("");
+      setQualidadeDoSinalGsm("");
+      setAlarmeLinguagem("");
       setCerca("");
+    }
+  }
+
+  const handleTransmissaoInformacao = () => {
+    if (numeroProtocolo == "94") {
+      setTipoInformacao(informacaoContida.substring(0, 2));
+      setConteudoDados(informacaoContida.substring(2));
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setTipoInformacao("");
+      setConteudoDados("");
+    }
+  }
+
+  const handleComandoOnline = () => {
+    if (numeroProtocolo == "80") {
+      setTamanhoComando(informacaoContida.substring(0, 2));
+      setBitBandeiraServidor(informacaoContida.substring(2, 10));
+      setConteudoComando(informacaoContida.substring(10, informacaoContida.length - 4));
+      setLinguagem(informacaoContida.substring(informacaoContida.length - 4));
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setTamanhoComando("");
+      setBitBandeiraServidor("");
+      setConteudoComando("");
+      setLinguagem("");
     }
   }
 
@@ -409,7 +448,8 @@ export default function Vl01() {
         </div>
         */}
 
-    {/* <div className="tableContainer">
+        {/* Pacote de Alarme
+    <div className="tableContainer">
           <div className="labelContainer">
 
           </div>
@@ -444,8 +484,10 @@ export default function Vl01() {
               </tr>
             </tbody>
           </table>
-        </div> */}
+        </div> 
+        */}
 
+        {/* Pacote de alarmes (cerca) 
         <div className="tableContainer">
           <div className="labelContainer">
 
@@ -522,9 +564,64 @@ export default function Vl01() {
             </tbody>
           </table>
         </div>
+        </div> 
+        */}
+
+        
+        <div className="tableContainer">
+          <div className="labelContainer">
+
+          </div>
+          <div className="containerLabel">
+            <label className="labelTitulo">Pacote de Transmissão de Informação</label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Tipo de informação(Numero de sub-protocolo):</th>
+                <td>{tipoInformacao}</td>
+              </tr>
+              <tr>
+                <th scope="row">Conteúdo dos dados:</th>
+                <td>{conteudoDados}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      
+
+        {/* Pacote Comando online
+        <div className="tableContainer">
+          <div className="containerLabel">
+            <label className="labelTitulo">Comando online </label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Tamanho do comando:</th>
+                <td>{tamanhoComando}</td>
+              </tr>
+              <tr>
+                <th scope="row">Bit da bandeira do servidor:</th>
+                <td>{bitBandeiraServidor}</td>
+              </tr>
+              <tr>
+                <th scope="row">Conteúdo do comando:</th>
+                <td>{conteudoComando}</td>
+              </tr>
+              <tr>
+                <th scope="row">Linguagem:</th>
+                <td>{linguagem}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        */}
 
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteAlarmesCerca()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleTransmissaoInformacao()}>Teste</button>
         </div>
       </div>
     </div>
