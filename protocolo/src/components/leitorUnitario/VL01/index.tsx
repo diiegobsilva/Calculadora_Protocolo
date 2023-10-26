@@ -34,7 +34,7 @@ export default function Vl01() {
   //Inicio Pacote Dados posição
   const [dataHora, setDataHora] = useState("")
   const [quantidadeSatelite, setQuantidadeSatelite] = useState("")
-  const [latiude, setLatitude] = useState("")
+  const [latitude, setLatitude] = useState("")
   const [longitude, setLongitude] = useState("")
   const [velocidade, setVelocidade] = useState("")
   const [curso, setCurso] = useState("")
@@ -46,6 +46,16 @@ export default function Vl01() {
   const [modoUploadDados, setModoUploadDados] = useState("")
   const [tempoRealGps, setTempoRealGps] = useState("")
   //Fim Pacote Dados posição
+
+
+  //Inicio Pacote de Alarme 
+  const [alarmeLinguagem, setAlarmeLinguagem] = useState("")
+  const [alarme, setAlarme] = useState("")
+    //data e hora
+    //latidude
+    //Logitude
+    //Curso, Status
+  //Fim Pacote de Alarme 
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
@@ -189,6 +199,26 @@ export default function Vl01() {
     }
   }
 
+  const handlePacoteAlarme = () => {
+    if (numeroProtocolo == "95") {
+      setDataHora(informacaoContida.substring(0, 12)); //12
+      setLatitude(informacaoContida.substring(12, 20)); //8
+      setLongitude(informacaoContida.substring(20, 28)); //8
+      setCurso(informacaoContida.substring(28, 32)); //4
+      setAlarmeLinguagem(informacaoContida.substring(32, 34)); //2
+      setAlarme(informacaoContida.substring(34)); //N
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setDataHora("");
+      setLatitude("");
+      setLongitude("");
+      setCurso("");
+      setAlarmeLinguagem("");
+      setAlarme("");
+    }
+  }
+
+
 
   return (
 
@@ -264,7 +294,7 @@ export default function Vl01() {
         </div>*/}
 
 
-        {/* Pacote de Posição(UTC) */}
+        {/* Pacote de Posição(UTC) 
         <div className="tableContainer">
           <div className="labelContainer">
 
@@ -330,9 +360,47 @@ export default function Vl01() {
             </tbody>
           </table>
         </div>
+        */}
+
+    <div className="tableContainer">
+          <div className="labelContainer">
+
+          </div>
+          <div className="containerLabel">
+            <label className="labelTitulo">Pacote de Alarme</label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Data e Horário:</th>
+                <td>{dataHora}</td>
+              </tr>
+              <tr>
+                <th scope="row">Latitude:</th>
+                <td>{latitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Logitude:</th>
+                <td>{longitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Curso, Status:</th>
+                <td>{curso}</td>
+              </tr>
+              <tr>
+                <th scope="row">Alarme / Linguagem:</th>
+                <td>{alarmeLinguagem}</td>
+              </tr>
+              <tr>
+                <th scope="row">Alarme:</th>
+                <td>{alarme}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleDadosPosicao()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteAlarme()}>Teste</button>
         </div>
       </div>
     </div>
