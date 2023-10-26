@@ -47,19 +47,22 @@ export default function Vl01() {
   const [tempoRealGps, setTempoRealGps] = useState("")
   //Fim Pacote Dados posição
 
+
   //Inicio Pacote de Alarme 
   const [alarmeLinguagem, setAlarmeLinguagem] = useState("")
   const [alarme, setAlarme] = useState("")
-  //data e hora
-  //latidude
-  //Logitude
-  //Curso, Status
+    //data e hora
+    //latidude
+    //Logitude
+    //Curso, Status
   //Fim Pacote de Alarme 
 
-  //Inicio Pacote Transmissão de Informação
-  const [tipoInformacao, setTipoInformacao] = useState("")
-  const [conteudoDados, setConteudoDados] = useState("")
-  //Fim Pacote Transmissão de Informação
+  //Pacote de Alarme (Cerca)
+   const [tamanhoLbs, setTamanhoLbs] = useState("")
+   const [informacaoDoTerminal, setInformacaoDoTerminal] = useState("")
+   const [tensaoDeBateriaInterna, setTensaoDeBateriaInterna] = useState("")
+   const [qualidadeDoSinalGsm, setQualidadeDoSinalGsm] = useState("")
+   const [cerca, setCerca] = useState("")
 
 
   const handleSeparacaoClick = () => {
@@ -223,14 +226,42 @@ export default function Vl01() {
     }
   }
 
-  const handleTransmissaoInformacao = () => {
-    if (numeroProtocolo == "94") {
-      setTipoInformacao(informacaoContida.substring(0, 2));
-      setConteudoDados(informacaoContida.substring(2));
+  const handlePacoteAlarmesCerca = () => {
+    if (numeroProtocolo == "A4") {
+      setDataHora(informacaoContida.substring(0, 12)); //12
+      setQuantidadeSatelite(informacaoContida.substring(12, 14)); //2
+      setLatitude(informacaoContida.substring(14, 22)); //8
+      setLongitude(informacaoContida.substring(22, 30)); //8
+      setVelocidade(informacaoContida.substring(30, 32)); //2
+      setCurso(informacaoContida.substring(32, 36)); //4
+      setTamanhoLbs(informacaoContida.substring(36, 38)); //2
+      setMcc(informacaoContida.substring(38, 42)); //4
+      setMnc(informacaoContida.substring(42, 44)); //2
+      setLac(informacaoContida.substring(44, 48)); //4
+      setCelularId(informacaoContida.substring(48, 54)); //6
+      setInformacaoDoTerminal(informacaoContida.substring(54, 56)); //2
+      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58)); //2
+      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60)); //2
+      setAlarmeLinguagem(informacaoContida.substring(60, 64)); //4
+      setCerca(informacaoContida.substring(64, 66)); //2
+
     } else {
       console.log("Numero de Protocolo incorreto");
-      setTipoInformacao("");
-      setConteudoDados("");
+      setDataHora("");
+      setQuantidadeSatelite("");
+      setLatitude("");
+      setVelocidade("");
+      setCurso("");
+      setTamanhoLbs("");
+      setMcc("");
+      setMnc("");
+      setLac("");
+      setCelularId("");
+      setInformacaoDoTerminal("");
+      setTensaoDeBateriaInterna("");
+      setQualidadeDoSinalGsm ("");
+      setAlarmeLinguagem ("");
+      setCerca("");
     }
   }
 
@@ -378,8 +409,7 @@ export default function Vl01() {
         </div>
         */}
 
-        {/* Pacote de Alarme
-        <div className="tableContainer">
+    {/* <div className="tableContainer">
           <div className="labelContainer">
 
           </div>
@@ -414,32 +444,87 @@ export default function Vl01() {
               </tr>
             </tbody>
           </table>
-        </div>
-        */}
+        </div> */}
 
-<div className="tableContainer">
+        <div className="tableContainer">
           <div className="labelContainer">
 
           </div>
           <div className="containerLabel">
-            <label className="labelTitulo">Pacote de Transmissão de Informação</label>
+            <label className="labelTitulo">Pacote de alarmes (cerca)</label>
           </div>
           <table className="customTable">
             <tbody>
               <tr>
-                <th scope="row">Tipo de informação(Numero de sub-protocolo):</th>
-                <td>{tipoInformacao}</td>
+                <th scope="row">Data e Horário:</th>
+                <td>{dataHora}</td>
               </tr>
               <tr>
-                <th scope="row">Conteúdo dos dados:</th>
-                <td>{conteudoDados}</td>
+                <th scope="row">Quantidade de satélites GPS:</th>
+                <td>{quantidadeSatelite}</td>
               </tr>
-
+              <tr>
+                <th scope="row">Latitude:</th>
+                <td>{latitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Longitude:</th>
+                <td>{longitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Velocidade:</th>
+                <td>{velocidade}</td>
+              </tr>
+              <tr>
+                <th scope="row">Curso, status:</th>
+                <td>{curso}</td>
+              </tr>
+              <tr>
+                <th scope="row">Tamanho LBS:</th>
+                <td>{tamanhoLbs}</td>
+              </tr>
+              <tr>
+                <th scope="row">MCC:</th>
+                <td>{mcc}</td>
+              </tr>
+              <tr>
+                <th scope="row">MNC:</th>
+                <td>{mnc}</td>
+              </tr>
+              <tr>
+                <th scope="row">LAC:</th>
+                <td>{lac}</td>
+              </tr>
+              <tr>
+                <th scope="row">Celular ID:</th>
+                <td>{celularId}</td>
+              </tr>
+              <tr>
+                <th scope="row">Informação do terminal :</th>
+                <td>{informacaoDoTerminal}</td>
+              </tr>
+              <tr>
+                <th scope="row">Tensão de bateria interna:</th>
+                <td>{tensaoDeBateriaInterna}</td>
+              </tr>
+              <tr>
+                <th scope="row">Qualidade do sinal GSM:</th>
+                <td>{qualidadeDoSinalGsm}</td>
+              </tr>
+              <tr>
+                <th scope="row">Alarme/linguagem:</th>
+                <td>{alarmeLinguagem}</td>
+              </tr>
+              <tr>
+                <th scope="row">Cerca:</th>
+                <td>{cerca}</td>
+              </tr>
             </tbody>
           </table>
         </div>
+
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleTransmissaoInformacao()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteAlarmesCerca()}>Teste</button>
         </div>
       </div>
     </div>
