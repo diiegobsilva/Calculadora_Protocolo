@@ -79,6 +79,21 @@ export default function Vl01() {
   //Fim Pacote Transmissão de Informação
 
 
+  //Inicio Pacote de informação WIFI
+  //data e hora
+  //quantidade de Satelite
+  //Latidude
+  //Logitude
+  const [identificacaoEstado, setIdentificacaoEstado] = useState("")
+  const [quantidadeWifi, setQuatidadeWifi] = useState("")
+  const [wifiMac1, setWifiMac1] = useState("")
+  const [forcaWifi, setForcaWifi] = useState("")
+  const [wifiMac2, setWifiMac2] = useState("")
+  const [forcaWifi2, setForcaWifi2] = useState("")
+  const [identificaoSatelite, setIdentificaoSatelite] = useState("")
+  //Fim Pacote de informação WIFI
+
+
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
       const prefixo = valorProtocolo.substring(0, 4);
@@ -304,7 +319,33 @@ export default function Vl01() {
     }
   }
 
-
+  const handleInformacaoWifi = () => {
+    if (numeroProtocolo == "C3") {
+      setDataHora(informacaoContida.substring(0, 12)); // 12
+      setQuantidadeSatelite(informacaoContida.substring(12, 14)); // 2
+      setLatitude(informacaoContida.substring(14, 22)); // 8
+      setLongitude(informacaoContida.substring(22, 30)); // 8
+      setIdentificacaoEstado(informacaoContida.substring(30, 34)); // 4
+      setQuatidadeWifi(informacaoContida.substring(34, 36)); // 2
+      setWifiMac1(informacaoContida.substring(36, 48)); // 12
+      setForcaWifi(informacaoContida.substring(48, 50)); // 2
+      setWifiMac2(informacaoContida.substring(50, 62)); // 12
+      setForcaWifi2(informacaoContida.substring(62, 64)); // 2  
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setDataHora("");
+      setQuantidadeSatelite("");
+      setLatitude("");
+      setLongitude("");
+      setIdentificacaoEstado("");
+      setQuatidadeWifi("");
+      setWifiMac1("")
+      setForcaWifi("")
+      setWifiMac2("")
+      setForcaWifi2("")
+      setIdentificaoSatelite("")
+    }
+  }
 
   return (
 
@@ -567,7 +608,7 @@ export default function Vl01() {
         </div> 
         */}
 
-        
+        {/* Pacote de Transmissão de Informação
         <div className="tableContainer">
           <div className="labelContainer">
 
@@ -589,7 +630,7 @@ export default function Vl01() {
             </tbody>
           </table>
         </div>
-      
+      */}
 
         {/* Pacote Comando online
         <div className="tableContainer">
@@ -620,8 +661,58 @@ export default function Vl01() {
         </div>
         */}
 
+        <div className="tableContainer">
+          <div className="containerLabel">
+            <label className="labelTitulo">Pacote de informação WIFI</label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Data e Hora:</th>
+                <td>{dataHora}</td>
+              </tr>
+              <tr>
+                <th scope="row">Quantidade de Satélite:</th>
+                <td>{quantidadeSatelite}</td>
+              </tr>
+              <tr>
+                <th scope="row">Latitude:</th>
+                <td>{latitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Logitude:</th>
+                <td>{longitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Identificação de estado:</th>
+                <td>{identificaoSatelite}</td>
+              </tr>
+              <tr>
+                <th scope="row">Quantidade WIFI:</th>
+                <td>{quantidadeWifi}</td>
+              </tr>
+              <tr>
+                <th scope="row">WIFIMAC1:</th>
+                <td>{wifiMac1}</td>
+              </tr>
+              <tr>
+                <th scope="row">Força do WIFI1:</th>
+                <td>{forcaWifi}</td>
+              </tr>
+              <tr>
+                <th scope="row">WIFIMAC2:</th>
+                <td>{wifiMac2}</td>
+              </tr>
+              <tr>
+                <th scope="row">Força do WIFI 2:</th>
+                <td>{forcaWifi2}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleTransmissaoInformacao()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleInformacaoWifi()}>Teste</button>
         </div>
       </div>
     </div>
