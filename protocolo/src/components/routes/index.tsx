@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "../Navbar";
 import Home from "../Home";
 import LeitorLote from "../leitorLote";
-import Vl01 from "../leitorUnitario/VL01";
+import Vl01 from "../leitorUnitario/VL01/Home";
 import Vl02 from "../leitorUnitario/VL02";
 import Vl03 from "../leitorUnitario/VL03";
 

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './index.css';
-import TabelaSeparacao from '../../TabelaSeparacao';
+import TabelaSeparacao from '../../../TabelaSeparacao';
 import { Table } from 'react-bootstrap';
+import PacoteLogin from '../Pacotes/PacoteLogin';
+import PacoteHeartbeat from '../Pacotes/PacoteHeartbeat';
 
 export default function Vl01() {
 
@@ -143,11 +145,9 @@ export default function Vl01() {
   const handleInformacaoContida = (numeroProtocolo: string) => {
     switch (numeroProtocolo) {
       case "01":
-        setResultado("Informação de Login");
-        break;
+        return <PacoteLogin imei={imei} modelo={modelo} fuso={fuso}/>
       case "13":
-        setResultado("Pacote de Heartbeat");
-        break;
+        return <PacoteHeartbeat informacaoTerminal={informacaoTerminal} tensaoBateriaInterna={tensaoBateriaInterna} qualidadeGSM={qualidadeGSM} idiomaStatus={idiomaStatus}/>
       case "A0":
         setResultado("Dados de posição (UTC)");
         break;
@@ -363,63 +363,6 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo}
         valorProtocolo={valorProtocolo} />
       <div>
-
-        {/* Pacote Login 
-        <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de Login</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">IMEI:</th>
-                <td>{imei}</td>
-              </tr>
-              <tr>
-                <th scope="row">Modelo:</th>
-                <td>{modelo}</td>
-              </tr>
-              <tr>
-                <th scope="row">Fuso Horário:</th>
-                <td>{fuso}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>*/}
-
-        {/* Pacote de HeatBeat 
-        <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de HeatBeat</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Informação Terminal:</th>
-                <td>{informacaoTerminal}</td>
-              </tr>
-              <tr>
-                <th scope="row">Tensão da Bateria Interna:</th>
-                <td>{tensaoBateriaInterna}</td>
-              </tr>
-              <tr>
-                <th scope="row">Qualidade do GSM:</th>
-                <td>{qualidadeGSM}</td>
-              </tr>
-              <tr>
-                <th scope="row">Idioma / Status:</th>
-                <td>{idiomaStatus}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>*/}
-
 
         {/* Pacote de Posição(UTC) 
         <div className="tableContainer">
