@@ -129,7 +129,7 @@ export default function Vl01() {
       setInformacaoTerminal(informacaoContida.substring(0, 2));
       setTensaoBateriaInterna(informacaoContida.substring(2, 4));
       setQualidadeGSM(informacaoContida.substring(4, 6));
-      setIdiomaStatus(informacaoContida.substring(6, 8))
+      setIdiomaStatus(informacaoContida.substring(6, 10))
     } else {
       console.log("Numero de Protocolo incorreto");
       setInformacaoTerminal("");
@@ -156,7 +156,7 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo}
         valorProtocolo={valorProtocolo} />
       <div>
-      <div className="tableContainer">
+        <div className="tableContainer">
           <div className="labelContainer">
 
           </div>
