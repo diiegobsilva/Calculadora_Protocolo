@@ -29,7 +29,23 @@ export default function Vl01() {
   const [tensaoBateriaInterna, setTensaoBateriaInterna] = useState("")
   const [qualidadeGSM, setQualidadeGSM] = useState("")
   const [idiomaStatus, setIdiomaStatus] = useState("")
-  //Inicio Pacote de HeartBeat
+  //Fim Pacote de HeartBeat
+
+  //Inicio Pacote Dados posição
+  const [dataHora, setDataHora] = useState("")
+  const [quantidadeSatelite, setQuantidadeSatelite] = useState("")
+  const [latiude, setLatitude] = useState("")
+  const [longitude, setLongitude] = useState("")
+  const [velocidade, setVelocidade] = useState("")
+  const [curso, setCurso] = useState("")
+  const [mcc, setMcc] = useState("")
+  const [mnc, setMnc] = useState("")
+  const [lac, setLac] = useState("")
+  const [celularId, setCelularId] = useState("")
+  const [acc, setAcc] = useState("")
+  const [modoUploadDados, setModoUploadDados] = useState("")
+  const [tempoRealGps, setTempoRealGps] = useState("")
+  //Fim Pacote Dados posição
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
@@ -139,6 +155,40 @@ export default function Vl01() {
     }
   }
 
+  const handleDadosPosicao = () => {
+
+    if (numeroProtocolo == "A0") {
+      setDataHora(informacaoContida.substring(0, 12));
+      setQuantidadeSatelite(informacaoContida.substring(12, 14));
+      setLatitude(informacaoContida.substring(14, 22));
+      setLongitude(informacaoContida.substring(22, 30));
+      setVelocidade(informacaoContida.substring(30, 32));
+      setCurso(informacaoContida.substring(32, 36));
+      setMcc(informacaoContida.substring(36, 40));
+      setMnc(informacaoContida.substring(40, 44));
+      setLac(informacaoContida.substring(44, 52));
+      setCelularId(informacaoContida.substring(52, 68));
+      setAcc(informacaoContida.substring(68, 70));
+      setModoUploadDados(informacaoContida.substring(70, 72));
+      setTempoRealGps(informacaoContida.substring(72, 74));
+
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setDataHora("");
+      setQuantidadeSatelite("");
+      setLatitude("");
+      setVelocidade("");
+      setCurso("");
+      setMcc("");
+      setMnc("");
+      setLac("");
+      setCelularId("");
+      setAcc("");
+      setModoUploadDados("");
+      setTempoRealGps("");
+    }
+  }
+
 
   return (
 
@@ -156,6 +206,8 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo}
         valorProtocolo={valorProtocolo} />
       <div>
+
+        {/* Pacote Login 
         <div className="tableContainer">
           <div className="labelContainer">
 
@@ -179,8 +231,9 @@ export default function Vl01() {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div>*/}
 
+        {/* Pacote de HeatBeat 
         <div className="tableContainer">
           <div className="labelContainer">
 
@@ -208,10 +261,78 @@ export default function Vl01() {
               </tr>
             </tbody>
           </table>
+        </div>*/}
+
+
+        {/* Pacote de Posição(UTC) */}
+        <div className="tableContainer">
+          <div className="labelContainer">
+
+          </div>
+          <div className="containerLabel">
+            <label className="labelTitulo">Pacote de Posição(UTC)</label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Data e horário:</th>
+                <td>{dataHora}</td>
+              </tr>
+              <tr>
+                <th scope="row">Quantidade de satélites GPS:</th>
+                <td>{quantidadeSatelite}</td>
+              </tr>
+              <tr>
+                <th scope="row">Latitude:</th>
+                <td>{latiude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Longitude:</th>
+                <td>{longitude}</td>
+              </tr>
+              <tr>
+                <th scope="row">Velocidade:</th>
+                <td>{velocidade}</td>
+              </tr>
+              <tr>
+                <th scope="row">Curso:</th>
+                <td>{curso}</td>
+              </tr>
+              <tr>
+                <th scope="row">MCC:</th>
+                <td>{mcc}</td>
+              </tr>
+              <tr>
+                <th scope="row">MNC:</th>
+                <td>{mnc}</td>
+              </tr>
+              <tr>
+                <th scope="row">LAC:</th>
+                <td>{lac}</td>
+              </tr>
+              <tr>
+                <th scope="row">Celular ID:</th>
+                <td>{celularId}</td>
+              </tr>
+              <tr>
+                <th scope="row">ACC:</th>
+                <td>{acc}</td>
+              </tr>
+              <tr>
+                <th scope="row">Modo de upload de dados:</th>
+                <td>{modoUploadDados}</td>
+              </tr>
+              <tr>
+                <th scope="row">Tempo real de GPS:</th>
+                <td>{tempoRealGps}</td>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
 
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteHeartbeat()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleDadosPosicao()}>Teste</button>
         </div>
       </div>
     </div>
