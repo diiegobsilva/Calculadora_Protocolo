@@ -47,15 +47,20 @@ export default function Vl01() {
   const [tempoRealGps, setTempoRealGps] = useState("")
   //Fim Pacote Dados posição
 
-
   //Inicio Pacote de Alarme 
   const [alarmeLinguagem, setAlarmeLinguagem] = useState("")
   const [alarme, setAlarme] = useState("")
-    //data e hora
-    //latidude
-    //Logitude
-    //Curso, Status
+  //data e hora
+  //latidude
+  //Logitude
+  //Curso, Status
   //Fim Pacote de Alarme 
+
+  //Inicio Pacote Transmissão de Informação
+  const [tipoInformacao, setTipoInformacao] = useState("")
+  const [conteudoDados, setConteudoDados] = useState("")
+  //Fim Pacote Transmissão de Informação
+
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
@@ -218,6 +223,17 @@ export default function Vl01() {
     }
   }
 
+  const handleTransmissaoInformacao = () => {
+    if (numeroProtocolo == "94") {
+      setTipoInformacao(informacaoContida.substring(0, 2));
+      setConteudoDados(informacaoContida.substring(2));
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      setTipoInformacao("");
+      setConteudoDados("");
+    }
+  }
+
 
 
   return (
@@ -362,7 +378,8 @@ export default function Vl01() {
         </div>
         */}
 
-    <div className="tableContainer">
+        {/* Pacote de Alarme
+        <div className="tableContainer">
           <div className="labelContainer">
 
           </div>
@@ -398,9 +415,31 @@ export default function Vl01() {
             </tbody>
           </table>
         </div>
+        */}
 
+<div className="tableContainer">
+          <div className="labelContainer">
+
+          </div>
+          <div className="containerLabel">
+            <label className="labelTitulo">Pacote de Transmissão de Informação</label>
+          </div>
+          <table className="customTable">
+            <tbody>
+              <tr>
+                <th scope="row">Tipo de informação(Numero de sub-protocolo):</th>
+                <td>{tipoInformacao}</td>
+              </tr>
+              <tr>
+                <th scope="row">Conteúdo dos dados:</th>
+                <td>{conteudoDados}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handlePacoteAlarme()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleTransmissaoInformacao()}>Teste</button>
         </div>
       </div>
     </div>
