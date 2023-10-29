@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './index.css';
 import TabelaSeparacao from '../../../TabelaSeparacao';
-import { Table } from 'react-bootstrap';
 import PacoteLogin from '../Pacotes/PacoteLogin';
 import PacoteHeartbeat from '../Pacotes/PacoteHeartbeat';
+import PacoteDadosGps from '../Pacotes/PacoteDadosGps';
+import PacoteAlarme from '../Pacotes/PacoteAlarme';
+import PacoteAlarmeCerca from '../Pacotes/PacoteAlarmeCerca';
+import PacoteTransmissaoInformacao from '../Pacotes/PacoteTransmissaoInformacao';
+import ComandoOnline from '../Pacotes/ComandoOnline';
+import PacoteInformacaoWifi from '../Pacotes/PacoteInformacaoWifi';
 
 export default function Vl01() {
+
+  const [componentAtual, setComponentAtual] =  useState<React.ReactNode | null>(null);
 
   //Inicio Variaveis Separação
   const [valorProtocolo, setValorProtocolo] = useState("");
@@ -16,8 +23,6 @@ export default function Vl01() {
   const [informacaoSequencia, setInformacaoSequencia] = useState("");
   const [errorCheck, setErrorCheck] = useState("");
   const [stopBit, setStopBit] = useState("");
-
-  const [resultado, setResultado] = useState("");
   //Fim Variaveis Separação
 
   //Inicio Pacote de Login
@@ -49,14 +54,9 @@ export default function Vl01() {
   const [tempoRealGps, setTempoRealGps] = useState("")
   //Fim Pacote Dados posição
 
-
   //Inicio Pacote de Alarme 
   const [alarmeLinguagem, setAlarmeLinguagem] = useState("")
   const [alarme, setAlarme] = useState("")
-  //data e hora
-  //latidude
-  //Logitude
-  //Curso, Status
   //Fim Pacote de Alarme 
 
   //Inicio Pacote de Alarme (Cerca)
@@ -66,7 +66,6 @@ export default function Vl01() {
   const [qualidadeDoSinalGsm, setQualidadeDoSinalGsm] = useState("")
   const [cerca, setCerca] = useState("")
   //Fim Pacote de Alarme (Cerca)
-
 
   //Inicio Comando Online
   const [tamanhoComando, setTamanhoComando] = useState("")
@@ -80,12 +79,7 @@ export default function Vl01() {
   const [conteudoDados, setConteudoDados] = useState("")
   //Fim Pacote Transmissão de Informação
 
-
   //Inicio Pacote de informação WIFI
-  //data e hora
-  //quantidade de Satelite
-  //Latidude
-  //Logitude
   const [identificacaoEstado, setIdentificacaoEstado] = useState("")
   const [quantidadeWifi, setQuatidadeWifi] = useState("")
   const [wifiMac1, setWifiMac1] = useState("")
@@ -94,7 +88,6 @@ export default function Vl01() {
   const [forcaWifi2, setForcaWifi2] = useState("")
   const [identificaoSatelite, setIdentificaoSatelite] = useState("")
   //Fim Pacote de informação WIFI
-
 
   const handleSeparacaoClick = () => {
     if (valorProtocolo) {
@@ -145,34 +138,34 @@ export default function Vl01() {
   const handleInformacaoContida = (numeroProtocolo: string) => {
     switch (numeroProtocolo) {
       case "01":
-        return <PacoteLogin imei={imei} modelo={modelo} fuso={fuso}/>
-      case "13":
-        return <PacoteHeartbeat informacaoTerminal={informacaoTerminal} tensaoBateriaInterna={tensaoBateriaInterna} qualidadeGSM={qualidadeGSM} idiomaStatus={idiomaStatus}/>
-      case "A0":
-        setResultado("Dados de posição (UTC)");
+        setComponentAtual(<PacoteLogin imei={imei} modelo={modelo} fuso={fuso} />);
         break;
+      case "13":
+        setComponentAtual(<PacoteHeartbeat informacaoTerminal={informacaoTerminal} tensaoBateriaInterna={tensaoBateriaInterna} qualidadeGSM={qualidadeGSM} idiomaStatus={idiomaStatus} />);
+        break;
+      case "A0":
+        setComponentAtual(<PacoteDadosGps dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} lac={lac} velocidade={velocidade} curso={curso} mcc={mcc} mnc={mnc} celularId={celularId} acc={acc} modoUploadDados={modoUploadDados} tempoRealGps={tempoRealGps} />);
+        break;      
       case "A4":
-        setResultado("Pacote de alarmes (cerca)");
+        setComponentAtual(<PacoteAlarmeCerca dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} velocidade={velocidade} tamanhoLbs={tamanhoLbs} curso={curso} mcc={curso} mnc={mnc} lac={lac} celularId={celularId} informacaoDoTerminal={informacaoDoTerminal} tensaoDeBateriaInterna={tensaoDeBateriaInterna} qualidadeDoSinalGsm={qualidadeDoSinalGsm} alarmeLinguagem={alarmeLinguagem} cerca={cerca} />);
         break;
       case "94":
-        setResultado("Pacote de transmissão de informação");
+        setComponentAtual(<PacoteTransmissaoInformacao tipoInformacao={tipoInformacao} conteudoDados={conteudoDados} />);
         break;
       case "95":
-        setResultado("Pacote de alarmes");
+        setComponentAtual(<PacoteAlarme dataHora={dataHora} latitude={latitude} longitude={longitude} curso={curso} alarmeLinguagem={alarmeLinguagem} alarme={alarme} />);
         break;
       case "80":
-        setResultado("Comando online");
-        break;
+        setComponentAtual(<ComandoOnline tamanhoComando={tamanhoComando} bitBandeiraServidor={bitBandeiraServidor} conteudoComando={conteudoComando} linguagem={linguagem} />);
+        break;     
       case "C3":
-        setResultado("Pacote de informação WIFI");
+        setComponentAtual(<PacoteInformacaoWifi dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} identificaoSatelite={identificaoSatelite} quantidadeWifi={quantidadeWifi} wifiMac1={wifiMac1} forcaWifi={forcaWifi} wifiMac2={wifiMac2} forcaWifi2={forcaWifi2}/>);
         break;
-      default:
-        setResultado("Protocolo não identificado");
-    }
+        default:
+          console.log("Protocolo não identificado");
+          setComponentAtual(null); 
+      }
   };
-
-  console.log(resultado);
-
 
   const handlePacoteLogin = () => {
     if (numeroProtocolo == "01") {
@@ -256,22 +249,22 @@ export default function Vl01() {
 
   const handlePacoteAlarmesCerca = () => {
     if (numeroProtocolo == "A4") {
-      setDataHora(informacaoContida.substring(0, 12)); 
-      setQuantidadeSatelite(informacaoContida.substring(12, 14)); 
-      setLatitude(informacaoContida.substring(14, 22)); 
-      setLongitude(informacaoContida.substring(22, 30)); 
-      setVelocidade(informacaoContida.substring(30, 32)); 
-      setCurso(informacaoContida.substring(32, 36)); 
-      setTamanhoLbs(informacaoContida.substring(36, 38)); 
-      setMcc(informacaoContida.substring(38, 42)); 
-      setMnc(informacaoContida.substring(42, 44)); 
-      setLac(informacaoContida.substring(44, 48)); 
-      setCelularId(informacaoContida.substring(48, 54)); 
-      setInformacaoDoTerminal(informacaoContida.substring(54, 56)); 
-      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58)); 
-      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60)); 
-      setAlarmeLinguagem(informacaoContida.substring(60, 64)); 
-      setCerca(informacaoContida.substring(64, 66)); 
+      setDataHora(informacaoContida.substring(0, 12));
+      setQuantidadeSatelite(informacaoContida.substring(12, 14));
+      setLatitude(informacaoContida.substring(14, 22));
+      setLongitude(informacaoContida.substring(22, 30));
+      setVelocidade(informacaoContida.substring(30, 32));
+      setCurso(informacaoContida.substring(32, 36));
+      setTamanhoLbs(informacaoContida.substring(36, 38));
+      setMcc(informacaoContida.substring(38, 42));
+      setMnc(informacaoContida.substring(42, 44));
+      setLac(informacaoContida.substring(44, 48));
+      setCelularId(informacaoContida.substring(48, 54));
+      setInformacaoDoTerminal(informacaoContida.substring(54, 56));
+      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58));
+      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60));
+      setAlarmeLinguagem(informacaoContida.substring(60, 64));
+      setCerca(informacaoContida.substring(64, 66));
 
     } else {
       console.log("Numero de Protocolo incorreto");
@@ -363,300 +356,15 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo}
         valorProtocolo={valorProtocolo} />
       <div>
-
-        {/* Pacote de Posição(UTC) 
-        <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de Posição(UTC)</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Data e horário:</th>
-                <td>{dataHora}</td>
-              </tr>
-              <tr>
-                <th scope="row">Quantidade de satélites GPS:</th>
-                <td>{quantidadeSatelite}</td>
-              </tr>
-              <tr>
-                <th scope="row">Latitude:</th>
-                <td>{latiude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Longitude:</th>
-                <td>{longitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Velocidade:</th>
-                <td>{velocidade}</td>
-              </tr>
-              <tr>
-                <th scope="row">Curso:</th>
-                <td>{curso}</td>
-              </tr>
-              <tr>
-                <th scope="row">MCC:</th>
-                <td>{mcc}</td>
-              </tr>
-              <tr>
-                <th scope="row">MNC:</th>
-                <td>{mnc}</td>
-              </tr>
-              <tr>
-                <th scope="row">LAC:</th>
-                <td>{lac}</td>
-              </tr>
-              <tr>
-                <th scope="row">Celular ID:</th>
-                <td>{celularId}</td>
-              </tr>
-              <tr>
-                <th scope="row">ACC:</th>
-                <td>{acc}</td>
-              </tr>
-              <tr>
-                <th scope="row">Modo de upload de dados:</th>
-                <td>{modoUploadDados}</td>
-              </tr>
-              <tr>
-                <th scope="row">Tempo real de GPS:</th>
-                <td>{tempoRealGps}</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-        */}
-
-        {/* Pacote de Alarme
-    <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de Alarme</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Data e Horário:</th>
-                <td>{dataHora}</td>
-              </tr>
-              <tr>
-                <th scope="row">Latitude:</th>
-                <td>{latitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Logitude:</th>
-                <td>{longitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Curso, Status:</th>
-                <td>{curso}</td>
-              </tr>
-              <tr>
-                <th scope="row">Alarme / Linguagem:</th>
-                <td>{alarmeLinguagem}</td>
-              </tr>
-              <tr>
-                <th scope="row">Alarme:</th>
-                <td>{alarme}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> 
-        */}
-
-        {/* Pacote de alarmes (cerca) 
-        <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de alarmes (cerca)</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Data e Horário:</th>
-                <td>{dataHora}</td>
-              </tr>
-              <tr>
-                <th scope="row">Quantidade de satélites GPS:</th>
-                <td>{quantidadeSatelite}</td>
-              </tr>
-              <tr>
-                <th scope="row">Latitude:</th>
-                <td>{latitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Longitude:</th>
-                <td>{longitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Velocidade:</th>
-                <td>{velocidade}</td>
-              </tr>
-              <tr>
-                <th scope="row">Curso, status:</th>
-                <td>{curso}</td>
-              </tr>
-              <tr>
-                <th scope="row">Tamanho LBS:</th>
-                <td>{tamanhoLbs}</td>
-              </tr>
-              <tr>
-                <th scope="row">MCC:</th>
-                <td>{mcc}</td>
-              </tr>
-              <tr>
-                <th scope="row">MNC:</th>
-                <td>{mnc}</td>
-              </tr>
-              <tr>
-                <th scope="row">LAC:</th>
-                <td>{lac}</td>
-              </tr>
-              <tr>
-                <th scope="row">Celular ID:</th>
-                <td>{celularId}</td>
-              </tr>
-              <tr>
-                <th scope="row">Informação do terminal :</th>
-                <td>{informacaoDoTerminal}</td>
-              </tr>
-              <tr>
-                <th scope="row">Tensão de bateria interna:</th>
-                <td>{tensaoDeBateriaInterna}</td>
-              </tr>
-              <tr>
-                <th scope="row">Qualidade do sinal GSM:</th>
-                <td>{qualidadeDoSinalGsm}</td>
-              </tr>
-              <tr>
-                <th scope="row">Alarme/linguagem:</th>
-                <td>{alarmeLinguagem}</td>
-              </tr>
-              <tr>
-                <th scope="row">Cerca:</th>
-                <td>{cerca}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        </div> 
-        */}
-
-        {/* Pacote de Transmissão de Informação
-        <div className="tableContainer">
-          <div className="labelContainer">
-
-          </div>
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de Transmissão de Informação</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Tipo de informação(Numero de sub-protocolo):</th>
-                <td>{tipoInformacao}</td>
-              </tr>
-              <tr>
-                <th scope="row">Conteúdo dos dados:</th>
-                <td>{conteudoDados}</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-      */}
-
-        {/* Pacote Comando online
-        <div className="tableContainer">
-          <div className="containerLabel">
-            <label className="labelTitulo">Comando online </label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Tamanho do comando:</th>
-                <td>{tamanhoComando}</td>
-              </tr>
-              <tr>
-                <th scope="row">Bit da bandeira do servidor:</th>
-                <td>{bitBandeiraServidor}</td>
-              </tr>
-              <tr>
-                <th scope="row">Conteúdo do comando:</th>
-                <td>{conteudoComando}</td>
-              </tr>
-              <tr>
-                <th scope="row">Linguagem:</th>
-                <td>{linguagem}</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-        */}
-
-        <div className="tableContainer">
-          <div className="containerLabel">
-            <label className="labelTitulo">Pacote de informação WIFI</label>
-          </div>
-          <table className="customTable">
-            <tbody>
-              <tr>
-                <th scope="row">Data e Hora:</th>
-                <td>{dataHora}</td>
-              </tr>
-              <tr>
-                <th scope="row">Quantidade de Satélite:</th>
-                <td>{quantidadeSatelite}</td>
-              </tr>
-              <tr>
-                <th scope="row">Latitude:</th>
-                <td>{latitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Logitude:</th>
-                <td>{longitude}</td>
-              </tr>
-              <tr>
-                <th scope="row">Identificação de estado:</th>
-                <td>{identificaoSatelite}</td>
-              </tr>
-              <tr>
-                <th scope="row">Quantidade WIFI:</th>
-                <td>{quantidadeWifi}</td>
-              </tr>
-              <tr>
-                <th scope="row">WIFIMAC1:</th>
-                <td>{wifiMac1}</td>
-              </tr>
-              <tr>
-                <th scope="row">Força do WIFI1:</th>
-                <td>{forcaWifi}</td>
-              </tr>
-              <tr>
-                <th scope="row">WIFIMAC2:</th>
-                <td>{wifiMac2}</td>
-              </tr>
-              <tr>
-                <th scope="row">Força do WIFI 2:</th>
-                <td>{forcaWifi2}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
         <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleInformacaoWifi()}>Teste</button>
+          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleInformacaoContida(numeroProtocolo)}>Teste</button>
         </div>
+
+        {componentAtual && (
+        <div>
+          {componentAtual}
+        </div>
+      )}
       </div>
     </div>
   );
