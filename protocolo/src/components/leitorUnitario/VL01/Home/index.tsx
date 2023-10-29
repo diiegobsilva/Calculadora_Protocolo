@@ -230,12 +230,12 @@ export default function Vl01() {
 
   const handlePacoteAlarme = () => {
     if (numeroProtocolo == "95") {
-      setDataHora(informacaoContida.substring(0, 12)); //12
-      setLatitude(informacaoContida.substring(12, 20)); //8
-      setLongitude(informacaoContida.substring(20, 28)); //8
-      setCurso(informacaoContida.substring(28, 32)); //4
-      setAlarmeLinguagem(informacaoContida.substring(32, 34)); //2
-      setAlarme(informacaoContida.substring(34)); //N
+      setDataHora(informacaoContida.substring(0, 12));
+      setLatitude(informacaoContida.substring(12, 20)); 
+      setLongitude(informacaoContida.substring(20, 28)); 
+      setCurso(informacaoContida.substring(28, 32)); 
+      setAlarmeLinguagem(informacaoContida.substring(32, 34)); 
+      setAlarme(informacaoContida.substring(34)); 
     } else {
       console.log("Numero de Protocolo incorreto");
       setDataHora("");
@@ -314,16 +314,16 @@ export default function Vl01() {
 
   const handleInformacaoWifi = () => {
     if (numeroProtocolo == "C3") {
-      setDataHora(informacaoContida.substring(0, 12)); // 12
-      setQuantidadeSatelite(informacaoContida.substring(12, 14)); // 2
-      setLatitude(informacaoContida.substring(14, 22)); // 8
-      setLongitude(informacaoContida.substring(22, 30)); // 8
-      setIdentificacaoEstado(informacaoContida.substring(30, 34)); // 4
-      setQuatidadeWifi(informacaoContida.substring(34, 36)); // 2
-      setWifiMac1(informacaoContida.substring(36, 48)); // 12
-      setForcaWifi(informacaoContida.substring(48, 50)); // 2
-      setWifiMac2(informacaoContida.substring(50, 62)); // 12
-      setForcaWifi2(informacaoContida.substring(62, 64)); // 2  
+      setDataHora(informacaoContida.substring(0, 12)); 
+      setQuantidadeSatelite(informacaoContida.substring(12, 14)); 
+      setLatitude(informacaoContida.substring(14, 22)); 
+      setLongitude(informacaoContida.substring(22, 30)); 
+      setIdentificacaoEstado(informacaoContida.substring(30, 34)); 
+      setQuatidadeWifi(informacaoContida.substring(34, 36)); 
+      setWifiMac1(informacaoContida.substring(36, 48)); 
+      setForcaWifi(informacaoContida.substring(48, 50)); 
+      setWifiMac2(informacaoContida.substring(50, 62)); 
+      setForcaWifi2(informacaoContida.substring(62, 64)); 
     } else {
       console.log("Numero de Protocolo incorreto");
       setDataHora("");
