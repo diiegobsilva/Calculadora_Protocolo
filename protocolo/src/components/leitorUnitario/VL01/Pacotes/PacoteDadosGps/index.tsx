@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 
 interface Props {
@@ -15,10 +15,62 @@ interface Props {
   acc: string,
   modoUploadDados: string,
   tempoRealGps: string
+  setDataHora: Function
+  setQuantidadeSatelite: Function
+  setLatitude: Function
+  setLongitude: Function
+  setVelocidade: Function
+  setCurso: Function
+  setMcc: Function
+  setMnc: Function
+  setLac: Function
+  setCelularId: Function
+  setAcc: Function
+  setModoUploadDados: Function
+  setTempoRealGps: Function
+  numeroProtocolo: string
+  informacaoContida: string
 }
 
 export default function PacoteDadosGps(props: Props) {
+  const handleDadosPosicao = () => {
+    if (props.numeroProtocolo == "A0") {
+      props.setDataHora(props.informacaoContida.substring(0, 12));
+      props.setQuantidadeSatelite(props.informacaoContida.substring(12, 14));
+      props.setLatitude(props.informacaoContida.substring(14, 22));
+      props.setLongitude(props.informacaoContida.substring(22, 30));
+      props.setVelocidade(props.informacaoContida.substring(30, 32));
+      props.setCurso(props.informacaoContida.substring(32, 36));
+      props.setMcc(props.informacaoContida.substring(36, 40));
+      props.setMnc(props.informacaoContida.substring(40, 44));
+      props.setLac(props.informacaoContida.substring(44, 52));
+      props.setCelularId(props.informacaoContida.substring(52, 68));
+      props.setAcc(props.informacaoContida.substring(68, 70));
+      props.setModoUploadDados(props.informacaoContida.substring(70, 72));
+      props.setTempoRealGps(props.informacaoContida.substring(72, 74));
 
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      props.setDataHora("");
+      props.setQuantidadeSatelite("");
+      props.setLatitude("");
+      props.setVelocidade("");
+      props.setCurso("");
+      props.setMcc("");
+      props.setMnc("");
+      props.setLac("");
+      props.setCelularId("");
+      props.setAcc("");
+      props.setModoUploadDados("");
+      props.setTempoRealGps("");
+    }
+  }
+
+  useEffect(() => {
+    handleDadosPosicao()
+  },[])
+
+  
   return (
     <div className="tableContainer">
     <div className="labelContainer">

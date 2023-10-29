@@ -134,212 +134,6 @@ export default function Vl01() {
     setStopBit("");
   };
 
-
-  const handleInformacaoContida = (numeroProtocolo: string) => {
-    switch (numeroProtocolo) {
-      case "01":
-        setComponentAtual(<PacoteLogin imei={imei} modelo={modelo} fuso={fuso} />);
-        break;
-      case "13":
-        setComponentAtual(<PacoteHeartbeat informacaoTerminal={informacaoTerminal} tensaoBateriaInterna={tensaoBateriaInterna} qualidadeGSM={qualidadeGSM} idiomaStatus={idiomaStatus} />);
-        break;
-      case "A0":
-        setComponentAtual(<PacoteDadosGps dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} lac={lac} velocidade={velocidade} curso={curso} mcc={mcc} mnc={mnc} celularId={celularId} acc={acc} modoUploadDados={modoUploadDados} tempoRealGps={tempoRealGps} />);
-        break;      
-      case "A4":
-        setComponentAtual(<PacoteAlarmeCerca dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} velocidade={velocidade} tamanhoLbs={tamanhoLbs} curso={curso} mcc={curso} mnc={mnc} lac={lac} celularId={celularId} informacaoDoTerminal={informacaoDoTerminal} tensaoDeBateriaInterna={tensaoDeBateriaInterna} qualidadeDoSinalGsm={qualidadeDoSinalGsm} alarmeLinguagem={alarmeLinguagem} cerca={cerca} />);
-        break;
-      case "94":
-        setComponentAtual(<PacoteTransmissaoInformacao tipoInformacao={tipoInformacao} conteudoDados={conteudoDados} />);
-        break;
-      case "95":
-        setComponentAtual(<PacoteAlarme dataHora={dataHora} latitude={latitude} longitude={longitude} curso={curso} alarmeLinguagem={alarmeLinguagem} alarme={alarme} />);
-        break;
-      case "80":
-        setComponentAtual(<ComandoOnline tamanhoComando={tamanhoComando} bitBandeiraServidor={bitBandeiraServidor} conteudoComando={conteudoComando} linguagem={linguagem} />);
-        break;     
-      case "C3":
-        setComponentAtual(<PacoteInformacaoWifi dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} identificaoSatelite={identificaoSatelite} quantidadeWifi={quantidadeWifi} wifiMac1={wifiMac1} forcaWifi={forcaWifi} wifiMac2={wifiMac2} forcaWifi2={forcaWifi2}/>);
-        break;
-        default:
-          console.log("Protocolo não identificado");
-          setComponentAtual(null); 
-      }
-  };
-
-  const handlePacoteLogin = () => {
-    if (numeroProtocolo == "01") {
-      setImei(informacaoContida.substring(0, 16));
-      setModelo(informacaoContida.substring(16, 20));
-      setFuso(informacaoContida.substring(20, 24));
-    } else {
-      console.log("Numer de Protocolo incorreto");
-      setImei("");
-      setModelo("");
-      setFuso("");
-    }
-  }
-
-  const handlePacoteHeartbeat = () => {
-    if (numeroProtocolo == "13") {
-      setInformacaoTerminal(informacaoContida.substring(0, 2));
-      setTensaoBateriaInterna(informacaoContida.substring(2, 4));
-      setQualidadeGSM(informacaoContida.substring(4, 6));
-      setIdiomaStatus(informacaoContida.substring(6, 10))
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setInformacaoTerminal("");
-      setTensaoBateriaInterna("");
-      setQualidadeGSM("");
-      setIdiomaStatus("");
-    }
-  }
-
-  const handleDadosPosicao = () => {
-    if (numeroProtocolo == "A0") {
-      setDataHora(informacaoContida.substring(0, 12));
-      setQuantidadeSatelite(informacaoContida.substring(12, 14));
-      setLatitude(informacaoContida.substring(14, 22));
-      setLongitude(informacaoContida.substring(22, 30));
-      setVelocidade(informacaoContida.substring(30, 32));
-      setCurso(informacaoContida.substring(32, 36));
-      setMcc(informacaoContida.substring(36, 40));
-      setMnc(informacaoContida.substring(40, 44));
-      setLac(informacaoContida.substring(44, 52));
-      setCelularId(informacaoContida.substring(52, 68));
-      setAcc(informacaoContida.substring(68, 70));
-      setModoUploadDados(informacaoContida.substring(70, 72));
-      setTempoRealGps(informacaoContida.substring(72, 74));
-
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setDataHora("");
-      setQuantidadeSatelite("");
-      setLatitude("");
-      setVelocidade("");
-      setCurso("");
-      setMcc("");
-      setMnc("");
-      setLac("");
-      setCelularId("");
-      setAcc("");
-      setModoUploadDados("");
-      setTempoRealGps("");
-    }
-  }
-
-  const handlePacoteAlarme = () => {
-    if (numeroProtocolo == "95") {
-      setDataHora(informacaoContida.substring(0, 12));
-      setLatitude(informacaoContida.substring(12, 20)); 
-      setLongitude(informacaoContida.substring(20, 28)); 
-      setCurso(informacaoContida.substring(28, 32)); 
-      setAlarmeLinguagem(informacaoContida.substring(32, 34)); 
-      setAlarme(informacaoContida.substring(34)); 
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setDataHora("");
-      setLatitude("");
-      setLongitude("");
-      setCurso("");
-      setAlarmeLinguagem("");
-      setAlarme("");
-    }
-  }
-
-  const handlePacoteAlarmesCerca = () => {
-    if (numeroProtocolo == "A4") {
-      setDataHora(informacaoContida.substring(0, 12));
-      setQuantidadeSatelite(informacaoContida.substring(12, 14));
-      setLatitude(informacaoContida.substring(14, 22));
-      setLongitude(informacaoContida.substring(22, 30));
-      setVelocidade(informacaoContida.substring(30, 32));
-      setCurso(informacaoContida.substring(32, 36));
-      setTamanhoLbs(informacaoContida.substring(36, 38));
-      setMcc(informacaoContida.substring(38, 42));
-      setMnc(informacaoContida.substring(42, 44));
-      setLac(informacaoContida.substring(44, 48));
-      setCelularId(informacaoContida.substring(48, 54));
-      setInformacaoDoTerminal(informacaoContida.substring(54, 56));
-      setTensaoDeBateriaInterna(informacaoContida.substring(56, 58));
-      setQualidadeDoSinalGsm(informacaoContida.substring(58, 60));
-      setAlarmeLinguagem(informacaoContida.substring(60, 64));
-      setCerca(informacaoContida.substring(64, 66));
-
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setDataHora("");
-      setQuantidadeSatelite("");
-      setLatitude("");
-      setVelocidade("");
-      setCurso("");
-      setTamanhoLbs("");
-      setMcc("");
-      setMnc("");
-      setLac("");
-      setCelularId("");
-      setInformacaoDoTerminal("");
-      setTensaoDeBateriaInterna("");
-      setQualidadeDoSinalGsm("");
-      setAlarmeLinguagem("");
-      setCerca("");
-    }
-  }
-
-  const handleTransmissaoInformacao = () => {
-    if (numeroProtocolo == "94") {
-      setTipoInformacao(informacaoContida.substring(0, 2));
-      setConteudoDados(informacaoContida.substring(2));
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setTipoInformacao("");
-      setConteudoDados("");
-    }
-  }
-
-  const handleComandoOnline = () => {
-    if (numeroProtocolo == "80") {
-      setTamanhoComando(informacaoContida.substring(0, 2));
-      setBitBandeiraServidor(informacaoContida.substring(2, 10));
-      setConteudoComando(informacaoContida.substring(10, informacaoContida.length - 4));
-      setLinguagem(informacaoContida.substring(informacaoContida.length - 4));
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setTamanhoComando("");
-      setBitBandeiraServidor("");
-      setConteudoComando("");
-      setLinguagem("");
-    }
-  }
-
-  const handleInformacaoWifi = () => {
-    if (numeroProtocolo == "C3") {
-      setDataHora(informacaoContida.substring(0, 12)); 
-      setQuantidadeSatelite(informacaoContida.substring(12, 14)); 
-      setLatitude(informacaoContida.substring(14, 22)); 
-      setLongitude(informacaoContida.substring(22, 30)); 
-      setIdentificacaoEstado(informacaoContida.substring(30, 34)); 
-      setQuatidadeWifi(informacaoContida.substring(34, 36)); 
-      setWifiMac1(informacaoContida.substring(36, 48)); 
-      setForcaWifi(informacaoContida.substring(48, 50)); 
-      setWifiMac2(informacaoContida.substring(50, 62)); 
-      setForcaWifi2(informacaoContida.substring(62, 64)); 
-    } else {
-      console.log("Numero de Protocolo incorreto");
-      setDataHora("");
-      setQuantidadeSatelite("");
-      setLatitude("");
-      setLongitude("");
-      setIdentificacaoEstado("");
-      setQuatidadeWifi("");
-      setWifiMac1("")
-      setForcaWifi("")
-      setWifiMac2("")
-      setForcaWifi2("")
-      setIdentificaoSatelite("")
-    }
-  }
-
   return (
 
     <div>
@@ -356,15 +150,29 @@ export default function Vl01() {
         setValorProtocolo={setValorProtocolo}
         valorProtocolo={valorProtocolo} />
       <div>
-        <div className="button-container">
-          <button className="buttonInformacaoContida btn-limpeza " onClick={() => handleInformacaoContida(numeroProtocolo)}>Teste</button>
-        </div>
-
-        {componentAtual && (
-        <div>
-          {componentAtual}
-        </div>
-      )}
+        {(() => {
+        switch (numeroProtocolo) {
+          case "01":
+            return <PacoteLogin imei={imei} modelo={modelo} fuso={fuso} setImei={setImei} setModelo={setModelo} setFuso={setFuso} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida} />;
+          case "13":
+            return <PacoteHeartbeat informacaoTerminal={informacaoTerminal} tensaoBateriaInterna={tensaoBateriaInterna} qualidadeGSM={qualidadeGSM} idiomaStatus={idiomaStatus} setInformacaoTerminal={setInformacaoTerminal} setTensaoBateriaInterna={setTensaoBateriaInterna} setQualidadeGSM={setQualidadeGSM} setIdiomaStatus={setIdiomaStatus} informacaoContida={informacaoContida} numeroProtocolo={numeroProtocolo} />;
+          case "A0":
+            return <PacoteDadosGps dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} lac={lac} velocidade={velocidade} curso={curso} mcc={mcc} mnc={mnc} celularId={celularId} acc={acc} modoUploadDados={modoUploadDados} tempoRealGps={tempoRealGps} setDataHora={setDataHora} setQuantidadeSatelite={setQuantidadeSatelite} setLatitude={setLatitude} setLongitude={setLongitude} setVelocidade={setVelocidade} setCurso={setCurso} setMcc={setMcc} setMnc={setMnc} setLac={setLac} setCelularId={setCelularId} setAcc={setAcc} setModoUploadDados={setModoUploadDados} setTempoRealGps={setTempoRealGps} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida} />;
+          case "A4":
+            return <PacoteAlarmeCerca dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} velocidade={velocidade} tamanhoLbs={tamanhoLbs} curso={curso} mcc={curso} mnc={mnc} lac={lac} celularId={celularId} informacaoDoTerminal={informacaoDoTerminal} tensaoDeBateriaInterna={tensaoDeBateriaInterna} qualidadeDoSinalGsm={qualidadeDoSinalGsm} alarmeLinguagem={alarmeLinguagem} cerca={cerca} setDataHora={setDataHora} setQuantidadeSatelite={setQuantidadeSatelite} setLatitude={setLatitude} setLongitude={setLongitude} setVelocidade={setVelocidade} setCurso={setCurso} setTamanhoLbs={setTamanhoLbs} setMcc={setMcc} setMnc={setMnc} setLac={setLac} setCelularId={setCelularId} setInformacaoDoTerminal={setInformacaoDoTerminal} setTensaoDeBateriaInterna={setTensaoDeBateriaInterna} setQualidadeDoSinalGsm={setQualidadeDoSinalGsm} setAlarmeLinguagem={setAlarmeLinguagem} setCerca={setCerca} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida} />;
+          case "94":
+            return <PacoteTransmissaoInformacao tipoInformacao={tipoInformacao} conteudoDados={conteudoDados} setTipoInformacao={setTipoInformacao} numeroProtocolo={numeroProtocolo} setConteudoDados={setConteudoDados} informacaoContida={informacaoContida} />;
+          case "95":
+            return <PacoteAlarme dataHora={dataHora} latitude={latitude} longitude={longitude} curso={curso} alarmeLinguagem={alarmeLinguagem} alarme={alarme} setDataHora={setDataHora} setLatitude={setLatitude} setLongitude={setLongitude} setCurso={setCurso} setAlarmeLinguagem={setAlarmeLinguagem} setAlarme={setAlarme} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida} />;
+          case "80":
+            return <ComandoOnline tamanhoComando={tamanhoComando} bitBandeiraServidor={bitBandeiraServidor} conteudoComando={conteudoComando} linguagem={linguagem} setTamanhoComando={setTamanhoComando} setBitBandeiraServidor={setBitBandeiraServidor} setConteudoComando={setConteudoComando} setLinguagem={setLinguagem} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida} />;
+          case "C3":
+            return <PacoteInformacaoWifi dataHora={dataHora} quantidadeSatelite={quantidadeSatelite} latitude={latitude} longitude={longitude} identificaoSatelite={identificaoSatelite} quantidadeWifi={quantidadeWifi} wifiMac1={wifiMac1} forcaWifi={forcaWifi} wifiMac2={wifiMac2} forcaWifi2={forcaWifi2} setDataHora={setDataHora} setQuantidadeSatelite={setQuantidadeSatelite} setLatitude={setLatitude} setLongitude={setLongitude} setIdentificacaoEstado={setIdentificacaoEstado} setQuatidadeWifi={setQuatidadeWifi} setWifiMac1={setWifiMac1} setForcaWifi={setForcaWifi} setWifiMac2={setWifiMac2} setForcaWifi2={setForcaWifi2} numeroProtocolo={numeroProtocolo} informacaoContida={informacaoContida}/>;
+          default:
+            console.log("Protocolo não identificado");
+            return null;
+        }
+        })()}
       </div>
     </div>
   );

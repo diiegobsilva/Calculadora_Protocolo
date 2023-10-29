@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 
 interface Props {
@@ -6,9 +6,34 @@ interface Props {
   bitBandeiraServidor: string,
   conteudoComando: string,
   linguagem: string,
+  setTamanhoComando: Function
+  setBitBandeiraServidor: Function
+  setConteudoComando: Function
+  setLinguagem: Function
+  numeroProtocolo: string,
+  informacaoContida: string,
 }
 
 export default function ComandoOnline(props: Props) {
+
+  const handleComandoOnline = () => {
+    if (props.numeroProtocolo == "80") {
+      props.setTamanhoComando(props.informacaoContida.substring(0, 2));
+      props.setBitBandeiraServidor(props.informacaoContida.substring(2, 10));
+      props.setConteudoComando(props.informacaoContida.substring(10, props.informacaoContida.length - 4));
+      props.setLinguagem(props.informacaoContida.substring(props.informacaoContida.length - 4));
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      props.setTamanhoComando("");
+      props.setBitBandeiraServidor("");
+      props.setConteudoComando("");
+      props.setLinguagem("");
+    }
+  }
+
+  useEffect(() => {
+    handleComandoOnline()
+  },[])
 
   return (
     <div className="tableContainer">

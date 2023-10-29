@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 
 interface Props {
@@ -18,10 +18,70 @@ interface Props {
   qualidadeDoSinalGsm: string,
   alarmeLinguagem: string,
   cerca: string,
+  setDataHora: Function
+  setQuantidadeSatelite: Function
+  setLatitude: Function
+  setLongitude: Function
+  setVelocidade: Function
+  setCurso: Function
+  setTamanhoLbs: Function
+  setMcc: Function
+  setMnc: Function
+  setLac: Function
+  setCelularId: Function
+  setInformacaoDoTerminal: Function
+  setTensaoDeBateriaInterna: Function
+  setQualidadeDoSinalGsm: Function
+  setAlarmeLinguagem: Function
+  setCerca: Function
+  numeroProtocolo: string,
+  informacaoContida: string,
 }
 
 
 export default function PacoteAlarmeCerca(props: Props) {
+  const handlePacoteAlarmesCerca = () => {
+    if (props.numeroProtocolo == "A4") {
+      props.setDataHora(props.informacaoContida.substring(0, 12));
+      props.setQuantidadeSatelite(props.informacaoContida.substring(12, 14));
+      props.setLatitude(props.informacaoContida.substring(14, 22));
+      props.setLongitude(props.informacaoContida.substring(22, 30));
+      props.setVelocidade(props.informacaoContida.substring(30, 32));
+      props.setCurso(props.informacaoContida.substring(32, 36));
+      props.setTamanhoLbs(props.informacaoContida.substring(36, 38));
+      props.setMcc(props.informacaoContida.substring(38, 42));
+      props.setMnc(props.informacaoContida.substring(42, 44));
+      props.setLac(props.informacaoContida.substring(44, 48));
+      props.setCelularId(props.informacaoContida.substring(48, 54));
+      props.setInformacaoDoTerminal(props.informacaoContida.substring(54, 56));
+      props.setTensaoDeBateriaInterna(props.informacaoContida.substring(56, 58));
+      props.setQualidadeDoSinalGsm(props.informacaoContida.substring(58, 60));
+      props.setAlarmeLinguagem(props.informacaoContida.substring(60, 64));
+      props.setCerca(props.informacaoContida.substring(64, 66));
+
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      props.setDataHora("");
+      props.setQuantidadeSatelite("");
+      props.setLatitude("");
+      props.setVelocidade("");
+      props.setCurso("");
+      props.setTamanhoLbs("");
+      props.setMcc("");
+      props. setMnc("");
+      props.setLac("");
+      props.setCelularId("");
+      props.setInformacaoDoTerminal("");
+      props.setTensaoDeBateriaInterna("");
+      props.setQualidadeDoSinalGsm("");
+      props.setAlarmeLinguagem("");
+      props.setCerca("");
+    }
+  }
+
+  useEffect(() => {
+    handlePacoteAlarmesCerca()
+  },[])
 
   return (
     <div className="tableContainer">

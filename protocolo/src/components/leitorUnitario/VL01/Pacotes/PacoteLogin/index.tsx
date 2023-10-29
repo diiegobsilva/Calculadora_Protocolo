@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 
 interface Props {
   imei: string,
   modelo: string,
   fuso: string,
+  setImei: Function
+  setModelo: Function
+  setFuso: Function
+  numeroProtocolo: string,
+  informacaoContida: string,
 }
 export default function PacoteLogin(props: Props) {
+
+  const handlePacoteLogin = () => {
+    if (props.numeroProtocolo == "01") {
+      props.setImei(props.informacaoContida.substring(0, 16));
+      props.setModelo(props.informacaoContida.substring(16, 20));
+      props.setFuso(props.informacaoContida.substring(20, 24));
+    } else {
+      console.log("Numer de Protocolo incorreto");
+      props.setImei("");
+      props.setModelo("");
+      props.setFuso("");
+    }
+  }
+  
+  useEffect(() => {
+    handlePacoteLogin()
+  },[])
 
   return (
 

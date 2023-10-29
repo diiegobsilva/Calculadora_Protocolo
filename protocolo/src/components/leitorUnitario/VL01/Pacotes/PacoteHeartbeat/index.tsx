@@ -1,14 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 
 interface Props {
   informacaoTerminal: string,
   tensaoBateriaInterna: string,
   qualidadeGSM: string,
-  idiomaStatus: string
+  idiomaStatus: string,
+  setInformacaoTerminal: Function
+  setTensaoBateriaInterna: Function
+  setQualidadeGSM: Function
+  setIdiomaStatus: Function
+  informacaoContida: string
+  numeroProtocolo: string
   }
 
 export default function PacoteHeartbeat(props:Props) {
+
+  const handlePacoteHeartbeat = () => {
+    if (props.numeroProtocolo == "13") {
+      props.setInformacaoTerminal(props.informacaoContida.substring(0, 2));
+      props.setTensaoBateriaInterna(props.informacaoContida.substring(2, 4));
+      props.setQualidadeGSM(props.informacaoContida.substring(4, 6));
+      props.setIdiomaStatus(props.informacaoContida.substring(6, 10))
+    } else {
+      console.log("Numero de Protocolo incorreto");
+      props.setInformacaoTerminal("");
+      props.setTensaoBateriaInterna("");
+      props.setQualidadeGSM("");
+      props.setIdiomaStatus("");
+    }
+  }
+  useEffect(() => {
+    handlePacoteHeartbeat()
+  },[])
+
 
   return (
 
